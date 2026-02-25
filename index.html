@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
 <style>
 /* Grundinställningar */
 body {
-    background-color: rgb(61, 61, 61);
+    background-color: rgb(10, 10, 10);
     color: white;
     margin: 0;
     font-family: Arial, sans-serif;
@@ -19,12 +19,12 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    background-color: rgb(235, 163, 46);
-    background-image: linear-gradient(to bottom, transparent, rgb(61,61,61));
+    background-color: rgb(0, 54, 105);
+    background-image: linear-gradient(to bottom, transparent, rgb(0, 0, 0));
 }
 
 .site-logo {
-    height: 100px;
+    height: 200px;
     width: auto;
 }
 
@@ -52,6 +52,9 @@ header {
     background: transparent;
     border: none;
     cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .menu-toggle .bar {
     display: block;
@@ -59,6 +62,50 @@ header {
     height: 3px;
     background: white;
     margin: 4px 0;
+}
+
+/* Responsive: Hamburger synlig på små skärmar */
+@media (max-width: 700px) {
+    .menu-toggle {
+        display: inline-flex;
+        z-index: 1200;
+    }
+
+    .top-menu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        position: absolute;
+        right: 20px;
+        top: 70px;
+        background: rgba(0,0,0,0.85);
+        border-radius: 6px;
+        padding: 0;
+        z-index: 1100;
+        width: 200px;
+    }
+
+    .top-menu.open {
+        max-height: 500px;
+        padding: 8px 12px;
+    }
+
+    .top-menu ul {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        position: relative;
+    }
+
+    .site-logo {
+        height: 100px;
+        max-height: 12vh;
+    }
 }
 
 /* Bubbles */
@@ -73,7 +120,7 @@ header {
 .bubble {
     position: relative;
     display: inline-block;
-    background: rgba(105, 1, 62, 0.717);
+    background: rgba(46, 46, 46, 0.717);
     color: #fff;
     padding: 10px 14px;
     border-radius: 18px;
@@ -84,7 +131,7 @@ header {
 }
 
 .bubble:hover {
-    background: rgb(83, 2, 73);
+    background: rgb(26, 24, 25);
 }
 
 /* Panels */
@@ -107,38 +154,34 @@ header {
 /* Neon Countdown */
 .countdown-container {
     text-align: center;
-    margin: 40px 0;
+    margin: 10px 0;
 }
 
 .countdown-title {
-    color: rgba(255, 20, 147, 0.85);
+    color: #ff32a0;
     font-size: 50px;
     font-weight: bold;
-    text-shadow: 0 0 3px rgba(255,20,147,0.85),0 0 6px rgba(255,20,147,0.85),0 0 10px rgba(255,20,147,0.85);
+    text-align: center;
+    text-shadow: 
+        0 0 4px rgba(255, 119, 192, 0.4),
+        0 0 8px rgba(255, 119, 192, 0.3),
+        0 0 12px rgba(255, 119, 192, 0.2);
     margin-bottom: 10px;
-    animation: pulse-neon 2s infinite alternate;
 }
 
 #countdown {
     font-size: 40px;
     font-weight: bold;
-    color: rgba(255, 20, 147, 0.85);
-    text-shadow: 0 0 3px rgba(255,20,147,0.85),0 0 6px rgba(255,20,147,0.85),0 0 10px rgba(255,20,147,0.85);
-    background: rgba(0,0,0,0.7);
+    color: #ff32a0;
+    text-shadow:
+        0 0 4px rgba(255, 62, 165, 0.4),
+        0 0 8px rgba(255, 119, 192, 0.3),
+        0 0 12px rgba(255, 119, 192, 0.2);
+    background: transparent;
     padding: 10px 20px;
     border-radius: 15px;
     display: inline-block;
     letter-spacing: 3px;
-    animation: pulse-neon 2s infinite alternate;
-}
-
-@keyframes pulse-neon {
-    0% {
-        text-shadow: 0 0 2px rgba(255,20,147,0.7), 0 0 4px rgba(255,20,147,0.7), 0 0 6px rgba(255,20,147,0.7);
-    }
-    100% {
-        text-shadow: 0 0 4px rgba(255,20,147,0.9), 0 0 8px rgba(255,20,147,0.9), 0 0 12px rgba(255,20,147,0.9);
-    }
 }
 
 /* Sponsors */
@@ -160,8 +203,15 @@ header {
 
 <header>
     <img src="logo.png" alt="Logo" class="site-logo">
-    <button class="menu-toggle"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+
+    <button class="menu-toggle" aria-label="Öppna meny">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
     <nav id="primary-menu" class="top-menu">
+        <h1>Teknikum GATE</h1>
         <ul>
             <li><a href="index.html">Hem</a></li>
             <li><a href="about.html">Om</a></li>
@@ -179,8 +229,6 @@ header {
 </div>
 
 <div class="content">
-    <h1>Teknikum GATE</h1>
-
     <section class="bubbles">
         <button class="bubble">Priser</button>
         <button class="bubble">Regler</button>
@@ -215,11 +263,10 @@ header {
                 <li>Inget sabotage</li>
                 <li>Inget fusk</li>
             </ul>
-            <p><strong>Tävlingsregler:</strong> Dessa regler gäller just i tävlingssammanhang</p>
         </div>
         <div class="bubble-panel">
             <h2>Events</h2>
-            <p>Om vi har tillräckligt många spelar kommer vi att hålla tävlingar i tävlingsinriktade spel, exempelvis Counter Strike, Valorant och mer.</p>
+            <p>Om vi har tillräckligt många spelare kommer vi att hålla tävlingar i spel som CS, Valorant och mer.</p>
         </div>
     </div>
 </div>
@@ -229,27 +276,25 @@ header {
 </div>
 
 <script>
-// Countdown
-const targetDate = new Date(2026, 2, 20, 19, 0, 0).getTime();
-const countdownElement = document.getElementById("countdown");
-function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-    if (distance <= 0) {
-        countdownElement.innerHTML = "00:00:00:00";
-        return;
-    }
-    const days = Math.floor(distance / (1000*60*60*24));
-    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-    const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
-    const seconds = Math.floor((distance % (1000*60)) / 1000);
-    countdownElement.innerHTML = `${String(days).padStart(2,'0')}:${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
+// Hamburger meny
+document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('primary-menu');
 
-// Bubble panels
-document.addEventListener('DOMContentLoaded', () => {
+    if (toggle && menu) {
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            menu.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                menu.classList.remove('open');
+            }
+        });
+    }
+
+    // Bubble panels
     const bubbles = document.querySelectorAll('.bubble');
     const panels = document.querySelectorAll('.bubble-panel');
 
@@ -274,6 +319,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('click', () => closeAllPanels());
+
+    // Countdown
+    const targetDate = new Date(2026, 2, 20, 19, 0, 0).getTime();
+    const countdownElement = document.getElementById("countdown");
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        if (distance <= 0) {
+            countdownElement.innerHTML = "00:00:00:00";
+            return;
+        }
+        const days = Math.floor(distance / (1000*60*60*24));
+        const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+        const seconds = Math.floor((distance % (1000*60)) / 1000);
+        countdownElement.innerHTML = `${String(days).padStart(2,'0')}:${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 });
 </script>
 

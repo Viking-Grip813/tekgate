@@ -1,24 +1,58 @@
+/* ===========================
+   GLOBAL STYLING
+=========================== */
 body {
-            
-            background-color: rgb(61, 61, 61);
-            color: white;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-header {
-    background-color: rgb(255, 255, 82);
-    background-image:  linear-gradient(to bottom, transparent, rgb(61, 61, 61));
-     /* subtle gradient for depth */;
+    background-color: rgb(61, 61, 61);
+    color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
+/* ===========================
+   HEADER & LOGO & HAMBURGER
+=========================== */
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
+    background-color: rgb(255, 255, 82);
+    background-image: linear-gradient(to bottom, transparent, rgb(61, 61, 61));
+    position: relative;
+    z-index: 1000;
 }
 
+/* Logo */
+.site-logo {
+    height: 100px;
+    max-height: 12vh;
+    width: auto;
+    margin-left: 20px;
+}
+
+/* Hamburger button */
+.menu-toggle {
+    display: none; /* hidden on wide screens */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 12px;
+    z-index: 1200;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30px;
+}
+
+.menu-toggle .bar {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: white;
+    margin: 4px 0;
+}
+
+/* Navigation menu */
 .top-menu ul {
     list-style: none;
     margin: 0;
@@ -31,63 +65,53 @@ header {
     color: white;
     text-decoration: none;
     font-weight: 600;
-}   
+}
 
 .top-menu a:hover,
 .top-menu a:focus {
     text-decoration: underline;
 }
 
-/* Ensure the top menu stays visible above panels and overlays on small screens */
+/* Ensure top menu stays above other elements */
 .top-menu {
     z-index: 1100;
 }
-.top-menu a { color: white; }
 
-/* Logo sizing */
-.site-logo {
-    height: 400px;
-    max-height: 40vh;
-    width: auto;
-    margin-left: 100px;
-}
-
-/* Hamburger button */
-.menu-toggle {
-    display: none; /* hidden on wide screens */
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    margin-left: 12px;
-}
-.menu-toggle .bar {
-    display: block;
-    width: 24px;
-    height: 3px;
-    background: white;
-    margin: 4px 0;
-}
-
-/* Responsive: collapse menu under 700px */
+/* ===========================
+   MOBILE RESPONSIVE
+=========================== */
 @media (max-width: 700px) {
+
+    /* Hamburger visible */
     .menu-toggle {
         display: inline-flex;
-        align-items: center;
     }
 
+    /* Stack header items vertically */
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding-bottom: 8px;
+    }
+
+    /* Collapse top menu */
     .top-menu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
         position: absolute;
         right: 20px;
         top: 70px;
         background: rgba(0,0,0,0.85);
         border-radius: 6px;
-        padding: 8px 12px;
-        display: none; /* hidden until toggled */
+        padding: 0;
+        z-index: 1100;
     }
 
     .top-menu.open {
-        display: block;
+        max-height: 500px;
+        padding: 8px 12px;
     }
 
     .top-menu ul {
@@ -95,45 +119,22 @@ header {
         gap: 8px;
     }
 
-    header {
-        position: relative;
-        padding-bottom: 8px;
-    }
-
+    /* Logo resizing */
     .site-logo {
         height: 100px;
         max-height: 12vh;
     }
 }
 
-/* Very small screens: stack header elements */
-@media (max-width: 420px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-    .top-menu {
-        right: 10px;
-        top: 56px;
-    }
-}
-
-/* Bubbles section under H1 */
+/* ===========================
+   BUBBLES SECTION
+=========================== */
 .bubbles {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
     margin: 16px 20px;
-    justify-content: space-between; /* center bubbles under the H1 */
-}
-
-/* Centered content area */
-.content {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
+    justify-content: space-between;
 }
 
 .bubble {
@@ -144,13 +145,12 @@ header {
     padding: 10px 14px;
     border-radius: 18px;
     font-weight: 600;
-    cursor: pointer; /* not a link */
+    cursor: pointer;
     box-shadow: 0 4px 10px rgba(0,0,0,0.35);
     transition: background 150ms ease, transform 120ms ease;
 }
 
 .bubble::after {
-    /* small tail for the speech bubble */
     content: "";
     position: absolute;
     bottom: -8px;
@@ -163,22 +163,18 @@ header {
 }
 
 .bubble:hover,
-
 .bubble:focus {
     background: rgb(83, 2, 73);
 }
 
-
-
-/* Wide-screen layout: place three bubbles at 25%, 50%, 75% */
-
-/* Panels that show editable content under bubbles */
+/* Panels under bubbles */
 .bubble-panels {
     margin: 12px 20px 40px;
 }
+
 .bubble-panel {
     display: none;
-    pointer-events: none; /* hindrar dem från att blockera klick */
+    pointer-events: none;
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.06);
     padding: 12px;
@@ -187,18 +183,19 @@ header {
     min-height: 60px;
     box-sizing: border-box;
 }
+
 .bubble-panel.open {
     display: block;
-    pointer-events: auto; /* aktiverar interaktion när öppnad */
+    pointer-events: auto;
 }
 
+.bubble-panel.admin-mode {
+    border: 1px solid aqua;
+}
 
-/* On wide screens, anchor panels under each bubble */
-
-
-/* For narrower screens keep only a vertical lift on hover */
-
-/* Admin Modal */
+/* ===========================
+   ADMIN MODAL
+=========================== */
 .admin-modal {
     position: fixed;
     z-index: 1000;
@@ -211,6 +208,7 @@ header {
     align-items: center;
     justify-content: center;
 }
+
 .admin-modal-content {
     background-color: #1a1a1a;
     padding: 30px;
@@ -220,10 +218,12 @@ header {
     text-align: center;
     color: white;
 }
+
 .admin-modal-content h2 {
     margin-top: 0;
     color: aqua;
 }
+
 .admin-modal-content input {
     width: 100%;
     padding: 10px;
@@ -234,6 +234,7 @@ header {
     color: white;
     box-sizing: border-box;
 }
+
 .admin-modal-content button {
     background-color: aqua;
     color: black;
@@ -244,6 +245,7 @@ header {
     font-weight: 600;
     margin-top: 10px;
 }
+
 .admin-modal-content button:hover {
     background-color: #00e0e0;
 }
@@ -255,14 +257,14 @@ header {
     font-weight: bold;
     cursor: pointer;
 }
+
 .close:hover {
     color: #00e0e0;
 }
 
-.bubble-panel.admin-mode {
-    border: 1px solid aqua;
-} 
-/* Neon countdown container */
+/* ===========================
+   COUNTDOWN NEON
+=========================== */
 .countdown-container {
     text-align: center;
     margin: 40px 0;
@@ -270,57 +272,51 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;   /* behövs för z-index */
-    z-index: 5;           /* lägre än bubblor men ovanför bakgrund */
-}
-#countdown, .countdown-title {
     position: relative;
-    z-index: 5; /* ser till att siffrorna ligger ovanför bakgrund men under bubblor */
+    z-index: 5;
 }
 
-/* Neon titel över countdownen */
+#countdown, .countdown-title {
+    position: relative;
+    z-index: 5;
+}
+
+/* Neon title */
 .countdown-title {
-    color: rgba(255, 20, 147, 0.85); /* rosa */
+    color: #ff6bb5;
     font-size: 50px;
     font-weight: bold;
     text-align: center;
-    text-shadow: 
-        0 0 3px rgba(255, 20, 147, 0.85),
-        0 0 6px rgba(255, 20, 147, 0.85),
-        0 0 10px rgba(255, 20, 147, 0.85);
+    text-shadow: 0 0 3px rgba(255, 107, 181, 0.25);
     margin-bottom: 10px;
-    animation: pulse-neon 2s infinite alternate;
 }
 
-/* Neon countdown siffror */
+/* Neon countdown numbers */
 #countdown {
     font-size: 40px;
     font-weight: bold;
-    color: rgba(255, 20, 147, 0.85);
-    text-shadow: 
-        0 0 3px rgba(255, 20, 147, 0.85),
-        0 0 6px rgba(255, 20, 147, 0.85),
-        0 0 10px rgba(255, 20, 147, 0.85);
-    background: rgba(0,0,0,0.7);
-    padding: 10px 20px;   /* mindre padding */
+    color: #ff4da6;
+    text-shadow: 0 0 4px rgba(255, 107, 181, 0.2);
+    background: transparent;
+    padding: 10px 20px;
     border-radius: 15px;
-    display: inline-block; /* behåller block utan att trycka andra element */
+    display: inline-block;
     letter-spacing: 3px;
-    animation: pulse-neon 2s infinite alternate;
+    animation: pulse 2s infinite;
 }
 
-/* Animation för subtilt pulserande neon */
-@keyframes pulse-neon {
-    0% {
-        text-shadow: 
-            0 0 2px rgba(255, 20, 147, 0.7),
-            0 0 4px rgba(255, 20, 147, 0.7),
-            0 0 6px rgba(255, 20, 147, 0.7);
-    }
-    100% {
-        text-shadow: 
-            0 0 4px rgba(255, 20, 147, 0.9),
-            0 0 8px rgba(255, 20, 147, 0.9),
-            0 0 12px rgba(255, 20, 147, 0.9);
-    }
+@keyframes pulse {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+/* ===========================
+   CONTENT AREA
+=========================== */
+.content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
 }
