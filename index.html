@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tekgate</title>
+<style>
+/* Grundinställningar */
+body {
+    background-color: rgb(61, 61, 61);
+    color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header och logo */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: rgb(235, 163, 46);
+    background-image: linear-gradient(to bottom, transparent, rgb(61,61,61));
+}
+
+.site-logo {
+    height: 100px;
+    width: auto;
+}
+
+/* Top-menu */
+.top-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 16px;
+}
+
+.top-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+.top-menu a:hover {
+    text-decoration: underline;
+}
+
+/* Hamburger */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+.menu-toggle .bar {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: white;
+    margin: 4px 0;
+}
+
+/* Bubbles */
+.bubbles {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 16px 20px;
+    justify-content: center;
+}
+
+.bubble {
+    position: relative;
+    display: inline-block;
+    background: rgba(105, 1, 62, 0.717);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+    transition: background 150ms ease, transform 120ms ease;
+}
+
+.bubble:hover {
+    background: rgb(83, 2, 73);
+}
+
+/* Panels */
+.bubble-panels {
+    margin: 12px 20px 40px;
+}
+.bubble-panel {
+    display: none;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 12px;
+    border-radius: 8px;
+    color: #fff;
+    min-height: 60px;
+}
+.bubble-panel.open {
+    display: block;
+}
+
+/* Neon Countdown */
+.countdown-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.countdown-title {
+    color: rgba(255, 20, 147, 0.85);
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(255,20,147,0.85),0 0 6px rgba(255,20,147,0.85),0 0 10px rgba(255,20,147,0.85);
+    margin-bottom: 10px;
+    animation: pulse-neon 2s infinite alternate;
+}
+
+#countdown {
+    font-size: 40px;
+    font-weight: bold;
+    color: rgba(255, 20, 147, 0.85);
+    text-shadow: 0 0 3px rgba(255,20,147,0.85),0 0 6px rgba(255,20,147,0.85),0 0 10px rgba(255,20,147,0.85);
+    background: rgba(0,0,0,0.7);
+    padding: 10px 20px;
+    border-radius: 15px;
+    display: inline-block;
+    letter-spacing: 3px;
+    animation: pulse-neon 2s infinite alternate;
+}
+
+@keyframes pulse-neon {
+    0% {
+        text-shadow: 0 0 2px rgba(255,20,147,0.7), 0 0 4px rgba(255,20,147,0.7), 0 0 6px rgba(255,20,147,0.7);
+    }
+    100% {
+        text-shadow: 0 0 4px rgba(255,20,147,0.9), 0 0 8px rgba(255,20,147,0.9), 0 0 12px rgba(255,20,147,0.9);
+    }
+}
+
+/* Sponsors */
+.sponsors-fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 13px;
+    text-align: center;
+    z-index: 9999;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="Logo" class="site-logo">
+    <button class="menu-toggle"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+    <nav id="primary-menu" class="top-menu">
+        <ul>
+            <li><a href="index.html">Hem</a></li>
+            <li><a href="about.html">Om</a></li>
+            <li><a href="contact.html">Kontakta</a></li>
+            <li><a href="pay.html">Betala</a></li>
+            <li><a href="policy.html">Registrera</a></li>
+            <li><a href="sponsors.html">Sponsorer</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="countdown-container">
+    <h2 class="countdown-title">Porten öppnar om:</h2>
+    <div id="countdown">00:00:00:00</div>
+</div>
+
+<div class="content">
+    <h1>Teknikum GATE</h1>
+
+    <section class="bubbles">
+        <button class="bubble">Priser</button>
+        <button class="bubble">Regler</button>
+        <button class="bubble">Tävlingar</button>
+    </section>
+
+    <div class="bubble-panels">
+        <div class="bubble-panel">
+            <h2>Priser</h2>
+            <ul>
+                <li><strong>150 kr</strong> - Inträde med slumpmässig plats, inklusive sovplats (+39 kr för bestämd plats)</li>
+                <li><strong>299 kr</strong> - Inträde, bestämd plats, sovaplats över inklusive frukost</li>
+            </ul>
+        </div>
+        <div class="bubble-panel">
+            <h2>INFO</h2>
+            <p><strong>Regler:</strong> Bryter du mot de här reglerna får du en varning. Två varningar och du åker ut ur Lan:et.</p>
+            <h3>Allmäna regler</h3>
+            <ul>
+                <li>Håll ljudnivån</li>
+                <li>Vårda språket</li>
+                <li>Visa respekt för andra</li>
+            </ul>
+            <ul>
+                <li>Inga explicita handlingar eller innehåll</li>
+                <li>Inget våld</li>
+                <li>Inget hat mot folkgrupp</li>
+                <li>Ingen alkohol, droger eller rökning</li>
+            </ul>
+            <h3>Tävlingsregler</h3>
+            <ul>
+                <li>Inget sabotage</li>
+                <li>Inget fusk</li>
+            </ul>
+            <p><strong>Tävlingsregler:</strong> Dessa regler gäller just i tävlingssammanhang</p>
+        </div>
+        <div class="bubble-panel">
+            <h2>Events</h2>
+            <p>Om vi har tillräckligt många spelar kommer vi att hålla tävlingar i tävlingsinriktade spel, exempelvis Counter Strike, Valorant och mer.</p>
+        </div>
+    </div>
+</div>
+
+<div class="sponsors-fixed">
+    <strong>Sponsorer:</strong> On Hands Repair (UF), Net at Once
+</div>
+
+<script>
+// Countdown
+const targetDate = new Date(2026, 2, 20, 19, 0, 0).getTime();
+const countdownElement = document.getElementById("countdown");
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    if (distance <= 0) {
+        countdownElement.innerHTML = "00:00:00:00";
+        return;
+    }
+    const days = Math.floor(distance / (1000*60*60*24));
+    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((distance % (1000*60)) / 1000);
+    countdownElement.innerHTML = `${String(days).padStart(2,'0')}:${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Bubble panels
+document.addEventListener('DOMContentLoaded', () => {
+    const bubbles = document.querySelectorAll('.bubble');
+    const panels = document.querySelectorAll('.bubble-panel');
+
+    function closeAllPanels() {
+        panels.forEach(p => {
+            p.classList.remove('open');
+            p.setAttribute('aria-hidden', 'true');
+        });
+    }
+
+    bubbles.forEach((bubble, idx) => {
+        bubble.addEventListener('click', e => {
+            e.stopPropagation();
+            const panel = panels[idx];
+            const isOpen = panel.classList.contains('open');
+            closeAllPanels();
+            if (!isOpen) {
+                panel.classList.add('open');
+                panel.setAttribute('aria-hidden','false');
+            }
+        });
+    });
+
+    document.addEventListener('click', () => closeAllPanels());
+});
+</script>
+
+</body>
+</html>
