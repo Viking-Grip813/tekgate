@@ -153,7 +153,7 @@ header {
 /* Neon Countdown */
 .countdown-container {
     text-align: center;
-    margin: 10px 0;
+    margin-top: 20px 0px;
 }
 
 .countdown-title {
@@ -165,7 +165,8 @@ header {
         0 0 4px rgba(255, 119, 192, 0.4),
         0 0 8px rgba(255, 119, 192, 0.3),
         0 0 12px rgba(255, 119, 192, 0.2);
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-left: 200px;
 }
 
 #countdown {
@@ -177,10 +178,10 @@ header {
         0 0 8px rgba(255, 119, 192, 0.3),
         0 0 12px rgba(255, 119, 192, 0.2);
     background: transparent;
-    padding: 10px 20px;
     border-radius: 15px;
     display: inline-block;
     letter-spacing: 3px;
+    margin-left : 200px;
 }
 
 /* Sponsors */
@@ -202,6 +203,12 @@ header {
 
 <header>
     <img src="logo.png" alt="Logo" class="site-logo">
+    <div 
+    class="countdown-container">
+    <h2 class="countdown-title">Porten öppnar om:</h2>
+    <div 
+    id="countdown">00:00:00:00</div>
+</div>
 
     <button class="menu-toggle" aria-label="Öppna meny">
         <span class="bar"></span>
@@ -221,11 +228,6 @@ header {
         </ul>
     </nav>
 </header>
-
-<div class="countdown-container">
-    <h2 class="countdown-title">Porten öppnar om:</h2>
-    <div id="countdown">00:00:00:00</div>
-</div>
 
 <div class="content">
     <section class="bubbles">
