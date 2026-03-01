@@ -1,23 +1,89 @@
-document.addEventListener('DOMContentLoaded', function () {
+// central script file for all pages
+
+document.addEventListener('DOMContentLoaded', () => {
   // ===== HAMBURGER MENU =====
   const toggle = document.querySelector('.menu-toggle');
   const menu = document.getElementById('primary-menu');
 
   if (toggle && menu) {
-    toggle.addEventListener('click', function (e) {
-      e.stopPropagation(); // Förhindra bubbla upp till document
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent document click handler
       const isOpen = menu.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(isOpen));
     });
 
-    // Klick utanför menyn stänger den
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', (e) => {
       if (!menu.contains(e.target) && !toggle.contains(e.target)) {
         menu.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
       }
     });
   }
+
+  // ===== COUNTDOWN =====
+  const countdownElement = document.getElementById('countdown');
+  if (countdownElement) {
+    const targetDate = new Date(2026, 2, 20, 19, 0, 0).getTime();
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = targetDate - now;
+      if (distance <= 0) {
+        countdownElement.textContent = '00:00:00:00';
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdownElement.textContent = `${String(days).padStart(2,'0')}:${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  // ===== COOKIE BANNER =====
+  function showCookieBanner() {
+    if (!localStorage.getItem('cookieConsent')) {
+      document.getElementById('cookieBanner').classList.add('show');
+    }
+  }
+
+  window.acceptCookies = function () {
+    localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', 'true');
+    localStorage.setItem('marketingCookies', 'true');
+    document.getElementById('cookieBanner').classList.remove('show');
+  };
+
+  window.rejectCookies = function () {
+    localStorage.setItem('cookieConsent', 'rejected');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', 'false');
+    localStorage.setItem('marketingCookies', 'false');
+    document.getElementById('cookieBanner').classList.remove('show');
+  };
+
+  window.openCookieSettings = function () {
+    document.getElementById('analyticsCookies').checked = localStorage.getItem('analyticsCookies') !== 'false';
+    document.getElementById('marketingCookies').checked = localStorage.getItem('marketingCookies') !== 'false';
+    document.getElementById('cookieModal').classList.add('show');
+  };
+
+  window.closeCookieSettings = function () {
+    document.getElementById('cookieModal').classList.remove('show');
+  };
+
+  window.saveCookieSettings = function () {
+    localStorage.setItem('cookieConsent', 'customized');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', document.getElementById('analyticsCookies').checked);
+    localStorage.setItem('marketingCookies', document.getElementById('marketingCookies').checked);
+    document.getElementById('cookieModal').classList.remove('show');
+    document.getElementById('cookieBanner').classList.remove('show');
+  };
+
+  showCookieBanner();
 
   // ===== ADMIN MODAL =====
   const modal = document.getElementById('admin-modal');
@@ -31,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
   closeBtn?.addEventListener('click', () => modal.style.display = 'none');
 
   adminSubmit?.addEventListener('click', () => {
-    const correctPassword = 'dittlösen'; // byt ut eller gör server-side
+    const correctPassword = 'dittlösen';
     if (adminPassword.value === correctPassword) {
       isAdmin = true;
       sessionStorage.setItem('isAdmin', 'true');
@@ -59,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   bubbles.forEach((b, idx) => {
     b.addEventListener('click', (e) => {
-      e.stopPropagation(); // så att document click inte stänger direkt
+      e.stopPropagation();
       const panelIds = ['panel-one', 'panel-two', 'panel-three'];
       const panel = document.getElementById(panelIds[idx]);
       if (!panel) return;
@@ -80,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Klick utanför paneler stänger dem
   document.addEventListener('click', (e) => {
     if (![...bubbles].some(b => b.contains(e.target)) &&
         ![...panels].some(p => p.contains(e.target))) {
@@ -88,34 +153,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Escape stänger alla paneler och eventuell zoom (om du har den funktionen)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       if (typeof closeZoom === 'function') closeZoom();
       closeAllPanels();
-      if (menu.classList.contains('open')) {
+      if (menu && menu.classList.contains('open')) {
         menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
+        toggle?.setAttribute('aria-expanded', 'false');
       }
     }
   });
-});
-document.addEventListener('DOMContentLoaded', function () {
-    const toggle = document.querySelector('.menu-toggle');
-    const menu = document.getElementById('primary-menu');
-
-    if (toggle && menu) {
-        // Klick på hamburgaren öppnar/stänger menyn
-        toggle.addEventListener('click', function (e) {
-            e.stopPropagation();
-            menu.classList.toggle('open');
-        });
-
-        // Klick utanför menyn stänger den
-        document.addEventListener('click', function (e) {
-            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-                menu.classList.remove('open');
-            }
-        });
-    }
 });
