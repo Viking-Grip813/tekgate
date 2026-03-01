@@ -2,11 +2,15 @@
    GLOBAL STYLING
 =========================== */
 /* Grundinställningar */
+
 body {
     background-color: rgb(10, 10, 10);
     color: white;
     margin: 0;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Header och logo */
@@ -18,6 +22,7 @@ header {
     background-color: rgb(0, 54, 105);
     background-image: linear-gradient(to bottom, transparent, rgb(10, 10, 10));
 }
+
 
 /* Logo */
 .site-logo {
@@ -121,72 +126,7 @@ header {
     }
 }
 
-/* ===========================
-   BUBBLES SECTION
-=========================== */
-.bubbles {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin: 16px 20px;
-    justify-content: space-between;
-}
 
-.bubble {
-    position: relative;
-    display: inline-block;
-    background: rgba(105, 1, 62, 0.717);
-    color: #fff;
-    padding: 10px 14px;
-    border-radius: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.35);
-    transition: background 150ms ease, transform 120ms ease;
-}
-
-.bubble::after {
-    content: "";
-    position: absolute;
-    bottom: -8px;
-    left: 18px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 8px solid rgba(255,255,255,0.06);
-}
-
-.bubble:hover,
-.bubble:focus {
-    background: rgb(83, 2, 73);
-}
-
-/* Panels under bubbles */
-.bubble-panels {
-    margin: 12px 20px 40px;
-}
-
-.bubble-panel {
-    display: none;
-    pointer-events: none;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    padding: 12px;
-    border-radius: 8px;
-    color: #fff;
-    min-height: 60px;
-    box-sizing: border-box;
-}
-
-.bubble-panel.open {
-    display: block;
-    pointer-events: auto;
-}
-
-.bubble-panel.admin-mode {
-    border: 1px solid aqua;
-}
 
 /* ===========================
    ADMIN MODAL
@@ -256,62 +196,258 @@ header {
 .close:hover {
     color: #00e0e0;
 }
-
-/* ===========================
-   COUNTDOWN NEON
-=========================== */
-.countdown-container {
-    text-align: center;
-    margin: 40px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 5;
-}
-
-#countdown, .countdown-title {
-    position: relative;
-    z-index: 5;
-}
-
-/* Neon title */
-.countdown-title {
-    color: #ff6bb5;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 0 0 3px rgba(255, 107, 181, 0.25);
-    margin-bottom: 10px;
-}
-
-/* Neon countdown numbers */
-#countdown {
-    font-size: 40px;
-    font-weight: bold;
-    color: #ff4da6;
-    text-shadow: 0 0 4px rgba(255, 107, 181, 0.2);
-    background: transparent;
-    padding: 10px 20px;
-    border-radius: 15px;
-    display: inline-block;
-    letter-spacing: 3px;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { opacity: 0.8; }
-    50% { opacity: 1; }
-    100% { opacity: 0.8; }
-}
-
 /* ===========================
    CONTENT AREA
 =========================== */
 .content {
     max-width: 960px;
+    color: white;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
+    flex: 1;
+}
+
+/* ===========================
+   COUNTDOWN
+=========================== */
+.countdown-container {
+    text-align: center;
+    margin-top: 20px 0px;
+}
+
+.countdown-title {
+    color: #ff32a0;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 
+        0 0 4px rgba(255, 119, 192, 0.4),
+        0 0 8px rgba(255, 119, 192, 0.3),
+        0 0 12px rgba(255, 119, 192, 0.2);
+    margin-top: 20px;
+    margin-left: 150px;
+}
+
+#countdown {
+    font-size: 40px;
+    font-weight: bold;
+    color: #ff32a0;
+    text-shadow:
+        0 0 4px rgba(255, 62, 165, 0.4),
+        0 0 8px rgba(255, 119, 192, 0.3),
+        0 0 12px rgba(255, 119, 192, 0.2);
+    background: transparent;
+    border-radius: 15px;
+    display: inline-block;
+    letter-spacing: 3px;
+    margin-left : 150px;
+}
+
+.footer {
+    background-color: rgba(0, 54, 105, 0.5);
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+/* ===========================
+   COOKIE CONSENT
+=========================== */
+.cookie-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    z-index: 9998;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.cookie-banner.show {
+    display: flex;
+}
+
+.cookie-container {
+    background: #1a1a1a;
+    padding: 40px;
+    border-radius: 8px;
+    max-width: 500px;
+    border: 2px solid #ff32a0;
+    box-shadow: 0 0 20px rgba(255, 50, 160, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cookie-text {
+    flex: 1;
+    min-width: 250px;
+}
+
+.cookie-text h3 {
+    margin-top: 0;
+    color: #ff32a0;
+}
+
+.cookie-text p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cookie-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.cookie-accept {
+    background-color: #ff32a0;
+    color: white;
+}
+
+.cookie-accept:hover {
+    background-color: #ff5ab5;
+}
+
+.cookie-reject {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid white;
+}
+
+.cookie-reject:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.cookie-settings {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.cookie-settings:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Cookie Settings Modal */
+.cookie-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.cookie-modal.show {
+    display: flex;
+}
+
+.cookie-modal-content {
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 2px solid #ff32a0;
+}
+
+.cookie-modal-content h2 {
+    color: #ff32a0;
+    margin-top: 0;
+}
+
+.cookie-option {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cookie-option label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+.cookie-option input[type="checkbox"] {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.cookie-option p {
+    margin: 8px 0 0 28px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.cookie-modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cookie-modal-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.cookie-save {
+    background-color: #ff32a0;
+    color: white;
+}
+
+.cookie-save:hover {
+    background-color: #ff5ab5;
+}
+
+.cookie-cancel {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.cookie-cancel:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 700px) {
+    .cookie-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cookie-buttons {
+        justify-content: center;
+    }
+
+    .cookie-modal-content {
+        margin: 20px;
+        max-width: none;
+    }
 }

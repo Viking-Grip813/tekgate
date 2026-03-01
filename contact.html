@@ -9,6 +9,10 @@
 <body>
     <header>
         <img src="logo.png" alt="Logo" class="site-logo">
+        <div class="countdown-container">
+            <h2 class="countdown-title">Porten öppnar om:</h2>
+            <div id="countdown">00:00:00:00</div>
+        </div>
 
         <!-- Hamburger button for small screens -->
         <button class="menu-toggle" aria-expanded="false" aria-controls="primary-menu" aria-label="Toggle menu">
@@ -17,16 +21,16 @@
             <span class="bar"></span>
         </button>
 
-        <nav id="primary-menu" class="top-menu" aria-label="Main navigation">
-            <ul>
-                <li><a href="index.html">Hem</a></li>
-                <li><a href="about.html">Om</a></li>
-                <li><a href="contact.html">Kontakta</a></li>
-                <li><a href="pay.html">Betala</a></li>
-                <li><a href="policy.html">Registrera</a></li>
-                <li><a href="sponsors.html">Sponsorer</a></li>
-            </ul>
-        </nav>
+    <nav id="primary-menu" class="top-menu">
+        <h1>Teknikum GATE</h1>
+        <ul>
+            <li><a href="index.html">Hem</a></li>
+            <li><a href="about.html">Om</a></li>
+            <li><a href="contact.html">Kontakta</a></li>
+            <li><a href="policy.html">Registrera</a></li>
+            <li><a href="sponsors.html">Sponsorer</a></li>
+        </ul>
+    </nav>
     </header>
 
     <div class="content">
@@ -35,7 +39,192 @@
         <p>Email: teknikumgate@gmail.com</p>
         <p>Instagram: <a href="https://www.instagram.com/teknikum_gate?igsh=MWZhbnZ2NTgwaDBweg==" target="_blank" rel="noopener">@teknikum_gate</a></p>
     </div>
+    <div class="footer">
+        <p>&copy; 2026 Teknikum GATE. Alla rättigheter förbehållna.
+        <p>Vi tackar även våra sponsorer: <a href="sponsors.html" style="color: #ff32a0; text-decoration: underline;">Se sponsorer</a></p>
+    </div>
 
-    <script src="main.js"></script>
-</body>
-</html>
+<!-- Cookie Banner -->
+<div id="cookieBanner" class="cookie-banner">
+    <div class="cookie-container">
+        <div class="cookie-text">
+            <h3>Cookie Preferences</h3>
+            <p>Vi använder cookies för att förbättra din upplevelse. Du kan välja vilka cookies du accepterar.</p>
+        </div>
+        <div class="cookie-buttons">
+            <button class="cookie-btn cookie-settings" onclick="openCookieSettings()">Inställningar</button>
+            <button class="cookie-btn cookie-reject" onclick="rejectCookies()">Avvisa alla</button>
+            <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Acceptera alla</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cookie Settings Modal -->
+<div id="cookieModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+        <h2>Cookie Inställningar</h2>
+        
+        <div class="cookie-option">
+            <label>
+                <input type="checkbox" id="essentialCookies" checked disabled>
+                <span>Nödvändiga Cookies</span>
+            </label>
+            <p>Nödvändig för webbplatsen att fungera korrekt.</p>
+        </div>
+        
+        <div class="cookie-option">
+            <label>
+                <input type="checkbox" id="analyticsCookies">
+                <span>Analytics Cookies</span>
+            </label>
+            <p>Hjälper oss att förstå hur du använder vår webbplats.</p>
+        </div>
+        
+        <div class="cookie-option">
+            <label>
+                <input type="checkbox" id="marketingCookies">
+                <span>Marketing Cookies</span>
+            </label>
+            <p>Används för att visa relevanta annonser och kampanjer.</p>
+        </div>
+        
+        <div class="cookie-modal-buttons">
+            <button class="cookie-modal-buttons cookie-cancel" onclick="closeCookieSettings()">Avbryt</button>
+            <button class="cookie-modal-buttons cookie-save" onclick="saveCookieSettings()">Spara Inställningar</button>
+        </div>
+    </div>
+</div>
+
+<script src="main.js"></script>
+/ Show banner on page load
+document.addEventListener('DOMContentLoaded', showCookieBanner);
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.querySelector('.menu-toggle');
+        const menu = document.getElementById('primary-menu');
+
+        if (toggle && menu) {
+            toggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                menu.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                    menu.classList.remove('open');
+                }
+            });
+        }
+
+        // Countdown
+        const targetDate = new Date(2026, 2, 20, 19, 0, 0).getTime();
+        const countdownElement = document.getElementById("countdown");
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            if (distance <= 0) {
+                countdownElement.innerHTML = "00:00:00:00";
+                return;
+            }
+            const days = Math.floor(distance / (1000*60*60*24));
+            const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+            const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+            const seconds = Math.floor((distance % (1000*60)) / 1000);
+            countdownElement.innerHTML = `${String(days).padStart(2,'0')}:${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Show cookie banner
+        if (!localStorage.getItem('cookieConsent')) {
+            document.getElementById('cookieBanner').classList.add('show');
+        }
+    });
+    </script>
+<script>
+// Cookie Management
+function showCookieBanner() {
+    if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookieBanner').classList.add('show');
+    }
+}
+
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', 'true');
+    localStorage.setItem('marketingCookies', 'true');
+    document.getElementById('cookieBanner').classList.remove('show');
+}
+
+function rejectCookies() {
+    localStorage.setItem('cookieConsent', 'rejected');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', 'false');
+    localStorage.setItem('marketingCookies', 'false');
+    document.getElementById('cookieBanner').classList.remove('show');
+}
+
+function openCookieSettings() {
+    // Load current settings
+    document.getElementById('analyticsCookies').checked = localStorage.getItem('analyticsCookies') !== 'false';
+    document.getElementById('marketingCookies').checked = localStorage.getItem('marketingCookies') !== 'false';
+    document.getElementById('cookieModal').classList.add('show');
+}
+
+function closeCookieSettings() {
+    document.getElementById('cookieModal').classList.remove('show');
+}
+
+function saveCookieSettings() {
+    localStorage.setItem('cookieConsent', 'customized');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', document.getElementById('analyticsCookies').checked);
+    localStorage.setItem('marketingCookies', document.getElementById('marketingCookies').checked);
+    document.getElementById('cookieModal').classList.remove('show');
+    document.getElementById('cookieBanner').classList.remove('show');
+}
+
+// Show banner on page load
+document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('primary-menu');
+
+    if (toggle && menu) {
+        toggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            menu.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                menu.classList.remove('open');
+            }
+        });
+    }
+
+    // Countdown
+    const targetDate = new Date(2026, 2, 20, 19, 0, 0).getTime();
+    const countdownElement = document.getElementById("countdown");
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        if (distance <= 0) {
+            countdownElement.innerHTML = "00:00:00:00";
+            return;
+        }
+        const days = Math.floor(distance / (1000*60*60*24));
+        const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+        const seconds = Math.floor((distance % (1000*60)) / 1000);
+        countdownElement.innerHTML = `${String(days).padStart(2,'0')}:${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Show cookie banner only once
+    if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookieBanner').classList.add('show');
+    }
+});
+</script>

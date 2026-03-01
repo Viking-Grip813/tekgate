@@ -4,108 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tekgate</title>
+<link rel="stylesheet" href="main (1).css">
 <style>
-/* Grundinställningar */
-body {
-    background-color: rgb(10, 10, 10);
-    color: white;
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* Header och logo */
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: rgb(0, 54, 105);
-    background-image: linear-gradient(to bottom, transparent, rgb(10, 10, 10));
-}
-.site-logo {
-    height: 200px;
-    width: auto;
-}
-
-/* Top-menu */
-.top-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 16px;
-}
-
-.top-menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-}
-.top-menu a:hover {
-    text-decoration: underline;
-}
 
 /* Hamburger */
-.menu-toggle {
-    display: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.menu-toggle .bar {
-    display: block;
-    width: 24px;
-    height: 3px;
-    background: white;
-    margin: 4px 0;
-}
 
-/* Responsive: Hamburger synlig på små skärmar */
-@media (max-width: 700px) {
-    .menu-toggle {
-        display: inline-flex;
-        z-index: 1200;
-    }
-
-    .top-menu {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease, padding 0.3s ease;
-        position: absolute;
-        right: 20px;
-        top: 70px;
-        background: rgba(0,0,0,0.85);
-        border-radius: 6px;
-        padding: 0;
-        z-index: 1100;
-        width: 200px;
-    }
-
-    .top-menu.open {
-        max-height: 500px;
-        padding: 8px 12px;
-    }
-
-    .top-menu ul {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        position: relative;
-    }
-
-    .site-logo {
-        height: 100px;
-        max-height: 12vh;
-    }
-}
 
 /* Bubbles */
 .bubbles {
@@ -150,40 +53,6 @@ header {
     display: block;
 }
 
-/* Neon Countdown */
-.countdown-container {
-    text-align: center;
-    margin-top: 20px 0px;
-}
-
-.countdown-title {
-    color: #ff32a0;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 
-        0 0 4px rgba(255, 119, 192, 0.4),
-        0 0 8px rgba(255, 119, 192, 0.3),
-        0 0 12px rgba(255, 119, 192, 0.2);
-    margin-top: 20px;
-    margin-left: 200px;
-}
-
-#countdown {
-    font-size: 40px;
-    font-weight: bold;
-    color: #ff32a0;
-    text-shadow:
-        0 0 4px rgba(255, 62, 165, 0.4),
-        0 0 8px rgba(255, 119, 192, 0.3),
-        0 0 12px rgba(255, 119, 192, 0.2);
-    background: transparent;
-    border-radius: 15px;
-    display: inline-block;
-    letter-spacing: 3px;
-    margin-left : 200px;
-}
-
 /* Sponsors */
 .sponsors-fixed {
     position: fixed;
@@ -222,7 +91,6 @@ header {
             <li><a href="index.html">Hem</a></li>
             <li><a href="about.html">Om</a></li>
             <li><a href="contact.html">Kontakta</a></li>
-            <li><a href="pay.html">Betala</a></li>
             <li><a href="policy.html">Registrera</a></li>
             <li><a href="sponsors.html">Sponsorer</a></li>
         </ul>
@@ -271,10 +139,11 @@ header {
         </div>
     </div>
 </div>
-
-<div class="sponsors-fixed">
-    <strong>Sponsorer:</strong> On Hands Repair (UF), Net at Once
-</div>
+<div class="footer">
+        <p>&copy; 2026 Teknikum GATE. Alla rättigheter förbehållna. 
+        <p>Vi tackar även våra sponsorer: <a href="sponsors.html" style="color: #ff32a0; text-decoration: underline;">Se sponsorer</a></p>
+        
+    </div>
 
 <script>
 // Hamburger meny
@@ -341,6 +210,148 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(updateCountdown, 1000);
 });
 </script>
+
+<!-- Cookie Banner -->
+<div id="cookieBanner" class="cookie-banner">
+    <div class="cookie-container">
+        <div class="cookie-text">
+            <h3>Cookie Preferences</h3>
+            <p>Vi använder cookies för att förbättra din upplevelse. Du kan välja vilka cookies du accepterar.</p>
+        </div>
+        <div class="cookie-buttons">
+            <button class="cookie-btn cookie-settings" onclick="openCookieSettings()">Inställningar</button>
+            <button class="cookie-btn cookie-reject" onclick="rejectCookies()">Avvisa alla</button>
+            <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Acceptera alla</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cookie Settings Modal -->
+<div id="cookieModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+        <h2>Cookie Inställningar</h2>
+        
+        <div class="cookie-option">
+            <label>
+                <input type="checkbox" id="essentialCookies" checked disabled>
+                <span>Nödvändiga Cookies</span>
+            </label>
+            <p>Nödvändig för webbplatsen att fungera korrekt.</p>
+        </div>
+        
+        <div class="cookie-option">
+            <label>
+                <input type="checkbox" id="analyticsCookies">
+                <span>Analytics Cookies</span>
+            </label>
+            <p>Hjälper oss att förstå hur du använder vår webbplats.</p>
+        </div>
+        
+        <div class="cookie-option">
+            <label>
+                <input type="checkbox" id="marketingCookies">
+                <span>Marketing Cookies</span>
+            </label>
+            <p>Används för att visa relevanta annonser och kampanjer.</p>
+        </div>
+        
+        <div class="cookie-modal-buttons">
+            <button class="cookie-modal-buttons cookie-cancel" onclick="closeCookieSettings()">Avbryt</button>
+            <button class="cookie-modal-buttons cookie-save" onclick="saveCookieSettings()">Spara Inställningar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Cookie Management
+function showCookieBanner() {
+    if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookieBanner').classList.add('show');
+    }
+}
+
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', 'true');
+    localStorage.setItem('marketingCookies', 'true');
+    document.getElementById('cookieBanner').classList.remove('show');
+}
+
+function rejectCookies() {
+    localStorage.setItem('cookieConsent', 'rejected');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', 'false');
+    localStorage.setItem('marketingCookies', 'false');
+    document.getElementById('cookieBanner').classList.remove('show');
+}
+
+function openCookieSettings() {
+    // Load current settings
+    document.getElementById('analyticsCookies').checked = localStorage.getItem('analyticsCookies') !== 'false';
+    document.getElementById('marketingCookies').checked = localStorage.getItem('marketingCookies') !== 'false';
+    document.getElementById('cookieModal').classList.add('show');
+}
+
+function closeCookieSettings() {
+    document.getElementById('cookieModal').classList.remove('show');
+}
+
+function saveCookieSettings() {
+    localStorage.setItem('cookieConsent', 'customized');
+    localStorage.setItem('essentialCookies', 'true');
+    localStorage.setItem('analyticsCookies', document.getElementById('analyticsCookies').checked);
+    localStorage.setItem('marketingCookies', document.getElementById('marketingCookies').checked);
+    document.getElementById('cookieModal').classList.remove('show');
+    document.getElementById('cookieBanner').classList.remove('show');
+}
+
+// Show banner on page load
+document.addEventListener('DOMContentLoaded', showCookieBanner);
+</script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.querySelector('.menu-toggle');
+        const menu = document.getElementById('primary-menu');
+
+        if (toggle && menu) {
+            toggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                menu.classList.toggle('open');
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                    menu.classList.remove('open');
+                }
+            });
+        }
+
+        // Countdown
+        const targetDate = new Date(2026, 2, 20, 19, 0, 0).getTime();
+        const countdownElement = document.getElementById("countdown");
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            if (distance <= 0) {
+                countdownElement.innerHTML = "00:00:00:00";
+                return;
+            }
+            const days = Math.floor(distance / (1000*60*60*24));
+            const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+            const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+            const seconds = Math.floor((distance % (1000*60)) / 1000);
+            countdownElement.innerHTML = `${String(days).padStart(2,'0')}:${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Show cookie banner only once
+        if (!localStorage.getItem('cookieConsent')) {
+            document.getElementById('cookieBanner').classList.add('show');
+        }
+    });
+    </script>
 
 </body>
 </html>
