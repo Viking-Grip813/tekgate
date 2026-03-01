@@ -5,9 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('.menu-toggle');
   const menu = document.getElementById('primary-menu');
 
+  console.log('hamburger init, toggle=', toggle, 'menu=', menu);
+
   if (toggle && menu) {
+    console.log('hamburger elements found, attaching click listener');
     toggle.addEventListener('click', (e) => {
       e.stopPropagation(); // Prevent document click handler
+      console.log('hamburger clicked');
       const isOpen = menu.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(isOpen));
     });
@@ -18,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         toggle.setAttribute('aria-expanded', 'false');
       }
     });
+  } else {
+    console.warn('hamburger or menu element missing – cannot wire up toggle');
   }
 
   // ===== COUNTDOWN =====
@@ -129,9 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
   bubbles.forEach((b, idx) => {
     b.addEventListener('click', (e) => {
       e.stopPropagation();
-      const panelIds = ['panel-one', 'panel-two', 'panel-three'];
-      const panel = document.getElementById(panelIds[idx]);
-      if (!panel) return;
+      const panel = panels[idx];
+      if (!panel) {
+        console.warn('no panel found for bubble index', idx);
+        return;
+      }
 
       const wasOpen = panel.classList.contains('open');
       closeAllPanels();

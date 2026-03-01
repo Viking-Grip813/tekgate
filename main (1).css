@@ -41,12 +41,15 @@ header {
     z-index: 1200;
     flex-direction: column;
     justify-content: space-between;
-    height: 30px;
+    /* keep button only as big as bars + padding */
     position: absolute;
     top: 12px;
     right: 20px;
 }
 
+.menu-toggle:focus {
+    outline: 2px solid #ff32a0;
+}
 .menu-toggle .bar {
     display: block;
     width: 24px;
@@ -87,7 +90,7 @@ header {
 
     /* Hamburger visible */
     .menu-toggle {
-        display: inline-flex;
+        display: inline-flex !important;
     }
 
     /* Stack header items vertically */
@@ -98,23 +101,23 @@ header {
         padding-bottom: 8px;
     }
 
-    /* Collapse top menu */
+    /* Collapse top menu (mobile) - dropdown anchored under the burger */
     .top-menu {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
         position: absolute;
+        display: none;
         right: 20px;
-        top: 70px;
+        top: 50px; /* roughly toggle bottom (12px + 30px) */
         background: rgba(0,0,0,0.85);
         border-radius: 6px;
-        padding: 0;
+        padding: 8px 12px;
+        width: auto;
+        min-width: 120px;
+        box-sizing: border-box;
         z-index: 1100;
     }
 
     .top-menu.open {
-        max-height: 500px;
-        padding: 8px 12px;
+        display: block;
     }
 
     .top-menu ul {
