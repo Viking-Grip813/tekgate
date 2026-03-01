@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ===== COUNTDOWN =====
   const countdownElement = document.getElementById('countdown');
   if (countdownElement) {
+    console.log('countdown element found, starting timer');
     const targetDate = new Date(2026, 2, 20, 19, 0, 0).getTime();
     function updateCountdown() {
       const now = Date.now();
@@ -39,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
+  } else {
+    console.log('no countdown element found on this page');
   }
 
   // ===== COOKIE BANNER =====
